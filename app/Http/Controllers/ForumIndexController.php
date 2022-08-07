@@ -17,7 +17,7 @@ class ForumIndexController extends Controller
         $discussions = app(Pipeline::class)
                     ->send(Discussion::latest())
                     ->through([
-                        UnsolvedQueryFilter::class,
+                        UnsolvedQueryFilter::class . ':' . request()->get('unsolved'),
                         CreatedAtOrderQueryFilter::class
                     ])
                     ->thenReturn()

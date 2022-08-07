@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class UnsolvedQueryFilter
 {
-    public function handle(Builder $builder, $next)
+    public function handle(Builder $builder, $next, $value)
     {
 
-        if(!request()->has('unsolved')) {
+        if(!$value) {
 
             return $next($builder);
 
