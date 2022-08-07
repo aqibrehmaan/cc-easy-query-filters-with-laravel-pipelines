@@ -7,6 +7,7 @@ use App\Models\Discussion;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use App\Http\QueryFilters\UnsolvedQueryFilter;
+use App\Http\QueryFilters\CreatedAtOrderQueryFilter;
 
 class ForumIndexController extends Controller
 {
@@ -16,7 +17,8 @@ class ForumIndexController extends Controller
         $discussions = app(Pipeline::class)
                     ->send(Discussion::latest())
                     ->through([
-                        UnsolvedQueryFilter::class
+                        UnsolvedQueryFilter::class,
+                        CreatedAtOrderQueryFilter::class
                     ])
                     ->thenReturn()
                     ->get();
